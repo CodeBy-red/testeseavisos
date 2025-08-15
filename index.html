@@ -1,153 +1,62 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALERTA DE SISTEMA</title>
+    <title>CIGARRO</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
         body {
             background-color: #000;
-            color: #00FF41;
-            font-family: 'VT323', monospace;
-            text-align: left;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
             overflow: hidden;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
-
-        #terminal {
-            width: 100%;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             height: 100vh;
         }
-
-        .line {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 2.5vw; /* Tamanho da fonte responsivo */
-        }
-
-        .cursor {
-            display: inline-block;
-            background-color: #00FF41;
-            width: 1.5vw;
-            height: 3vw;
-            animation: blink 0.7s infinite;
-        }
-        
-        #warning {
-            color: #ff0000;
+        .spam-text {
+            font-size: 5vw;
             font-weight: bold;
-            font-size: 3vw;
-            text-align: center;
-            border: 2px solid #ff0000;
-            padding: 15px;
-            margin-top: 30px;
             text-transform: uppercase;
-            display: none; /* Começa escondido */
-            animation: warning-blink 1.5s infinite;
+            animation: blink 1s infinite, color-change 2s infinite;
+            padding: 5px;
+            margin: 0;
         }
-
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
-
-        @keyframes warning-blink {
-            0%, 100% { background-color: transparent; color: #ff0000; }
-            50% { background-color: #ff0000; color: #000; }
-        }
-
-        /* Responsividade para telas menores */
-        @media (max-width: 768px) {
-            .line {
-                font-size: 5vw;
-            }
-            .cursor {
-                width: 3vw;
-                height: 6vw;
-            }
-            #warning {
-                font-size: 4.5vw;
-            }
+        @keyframes color-change {
+            0% { color: #ff0000; }
+            25% { color: #ffff00; }
+            50% { color: #00ff00; }
+            75% { color: #00ffff; }
+            100% { color: #ff00ff; }
         }
     </style>
 </head>
 <body>
-    <div id="terminal"></div>
-    <div id="warning">
-        ALERTA CRÍTICO DE SAÚDE: FUMAR MATA. Causa cancro, enfisema e doenças cardíacas. Procure ajuda para parar.
+    <div class="container">
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
+        <p class="spam-text">CIGARRO</p>
     </div>
-
-    <script>
-        const terminal = document.getElementById('terminal');
-        const warning = document.getElementById('warning');
-        const lines = [
-            '>>> INICIANDO INTRUSÃO...',
-            '>>> SISTEMA COMPROMETIDO.',
-            '>>> IGNORAR AVISOS ANTERIORES.',
-            '>>> UMA MENSAGEM IMPORTA.',
-            '>>> UMA NECESSIDADE.',
-            '>>> PRESTE ATENÇÃO.',
-            '>>> AGORA.',
-            '>>> CIGARRO',
-            '>>> É UMA ORDEM.',
-            '>>> CIGARRO',
-            '>>> NÃO RESISTA.',
-            '>>> CIGARRO',
-        ];
-        let lineIndex = 0;
-        let charIndex = 0;
-
-        function type() {
-            if (lineIndex < lines.length) {
-                const currentLine = lines[lineIndex];
-                if (charIndex < currentLine.length) {
-                    const lineElement = document.querySelector(`.line-${lineIndex}`);
-                    lineElement.textContent += currentLine.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(type, Math.random() * 150 + 50);
-                } else {
-                    lineIndex++;
-                    charIndex = 0;
-                    if (lineIndex < lines.length) {
-                        const newLine = document.createElement('div');
-                        newLine.className = `line line-${lineIndex}`;
-                        newLine.innerHTML = '>&nbsp;'; // Prompt
-                        terminal.appendChild(newLine);
-                    }
-                    setTimeout(type, 500);
-                }
-            } else {
-                // Fim da "invasão"
-                document.querySelector('.cursor').style.display = 'none';
-                warning.style.display = 'block'; // Mostra o aviso crítico
-            }
-        }
-
-        function start() {
-            const initialLine = document.createElement('div');
-            initialLine.className = `line line-0`;
-            initialLine.innerHTML = '>&nbsp;';
-            const cursor = document.createElement('span');
-            cursor.className = 'cursor';
-            initialLine.appendChild(cursor);
-            terminal.appendChild(initialLine);
-            
-            // Reposicionar o cursor no final da linha atual
-            const observer = new MutationObserver(() => {
-                const currentLineElement = document.querySelector(`.line-${lineIndex}`);
-                if(currentLineElement) {
-                    currentLineElement.appendChild(cursor);
-                }
-            });
-            observer.observe(terminal, { childList: true, subtree: true });
-
-            setTimeout(type, 1000);
-        }
-
-        start();
-    </script>
 </body>
 </html>
