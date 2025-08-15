@@ -1,62 +1,80 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CIGARRO</title>
+    <title>!!! CIGARRO !!!</title>
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            overflow: hidden;
+        html, body {
             margin: 0;
             padding: 0;
-        }
-        .container {
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            color: #FF0000;
+            font-family: 'Arial Black', Gadget, sans-serif;
+            text-transform: uppercase;
+            overflow: hidden; /* Esconde barras de rolagem */
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
         }
+
+        .spam-container {
+            text-align: center;
+        }
+
         .spam-text {
-            font-size: 5vw;
-            font-weight: bold;
-            text-transform: uppercase;
-            animation: blink 1s infinite, color-change 2s infinite;
-            padding: 5px;
-            margin: 0;
+            font-size: 10vw; /* Tamanho grande e responsivo */
+            font-weight: 900;
+            line-height: 1.1;
+            padding: 0 10px;
+            /* Múltiplas animações para o efeito desejado */
+            animation: 
+                color-flicker 1.5s infinite,
+                text-shake 0.3s infinite,
+                glow 2s infinite alternate;
         }
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+
+        /* Animação que muda a cor do texto rapidamente */
+        @keyframes color-flicker {
+            0%   { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
+            25%  { color: #FFFF00; text-shadow: 0 0 10px #FFFF00; }
+            50%  { color: #FFFFFF; text-shadow: 0 0 10px #FFFFFF; }
+            75%  { color: #FF00FF; text-shadow: 0 0 10px #FF00FF; }
+            100% { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
         }
-        @keyframes color-change {
-            0% { color: #ff0000; }
-            25% { color: #ffff00; }
-            50% { color: #00ff00; }
-            75% { color: #00ffff; }
-            100% { color: #ff00ff; }
+
+        /* Animação que faz o texto tremer */
+        @keyframes text-shake {
+            0% { transform: translate(2px, 1px) rotate(0deg); }
+            25% { transform: translate(-1px, -2px) rotate(-1deg); }
+            50% { transform: translate(-3px, 0px) rotate(1deg); }
+            75% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(2px, -1px) rotate(-1deg); }
+        }
+        
+        /* Animação de brilho pulsante */
+        @keyframes glow {
+            from {
+                opacity: 0.7;
+            }
+            to {
+                opacity: 1;
+                text-shadow: 0 0 20px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
-        <p class="spam-text">CIGARRO</p>
+
+    <div class="spam-container">
+        <div class="spam-text">CIGARRO</div>
+        <div class="spam-text">CIGARRO</div>
+        <div class="spam-text">CIGARRO</div>
+        <div class="spam-text">CIGARRO</div>
+        <div class="spam-text">CIGARRO</div>
     </div>
+
 </body>
 </html>
