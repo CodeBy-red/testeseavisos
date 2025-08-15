@@ -1,13 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/style.css">
-  </head>
-  <body>
-    
-    <h1>CIGARRO</h1>
+    <title>ALERTA DE SISTEMA</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-  </body>
+        body {
+            background-color: #000;
+            color: #00FF41;
+            font-family: 'VT323', monospace;
+            text-align: left;
+            overflow: hidden;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #terminal {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .line {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 2.5vw; /* Tamanho da fonte responsivo */
+        }
+
+        .cursor {
+            display: inline-block;
+            background-color: #00FF41;
+            width: 1.5vw;
+            height: 3vw;
+            animation: blink 0.7s infinite;
+        }
+        
+        #warning {
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 3vw;
+            text-align: center;
+            border: 2px solid #ff0000;
+            padding: 15px;
+            margin-top: 30px;
+            text-transform: uppercase;
+            display: none; /* Começa escondido */
+            animation: warning-blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes warning-blink {
+            0%, 100% { background-color: transparent; color: #ff0000; }
+            50% { background-color: #ff0000; color: #000; }
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .line {
+                font-size: 5vw;
+            }
+            .cursor {
+                width: 3vw;
+                height: 6vw;
+            }
+            #warning {
+                font-size: 4.5vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal"></div>
+    <div id="warning">
+        ALERTA CRÍTICO DE SAÚDE: FUMAR MATA. Causa cancro, enfisema e doenças cardíacas. Procure ajuda para parar.
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const warning = document.getElementById('warning');
+        const lines = [
+            '>>> INICIANDO INTRUSÃO...',
+            '>>> SISTEMA COMPROMETIDO.',
+            '>>> IGNORAR AVISOS ANTERIORES.',
+            '>>> UMA MENSAGEM IMPORTA.',
+            '>>> UMA NECESSIDADE.',
+            '>>> PRESTE ATENÇÃO.',
+            '>>> AGORA.',
+            '>>> CIGARRO',
+            '>>> É UMA ORDEM.',
+            '>>> CIGARRO',
+            '>>> NÃO RESISTA.',
+            '>>> CIGARRO',
+        ];
+        let lineIndex = 0;
+        let charIndex = 0;
+
+        function type() {
+            if (lineIndex < lines.length) {
+                const currentLine = lines[lineIndex];
+                if (charIndex < currentLine.length) {
+                    const lineElement = document.querySelector(`.line-${lineIndex}`);
+                    lineElement.textContent += currentLine.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, Math.random() * 150 + 50);
+                } else {
+                    lineIndex++;
+                    charIndex = 0;
+                    if (lineIndex < lines.length) {
+                        const newLine = document.createElement('div');
+                        newLine.className = `line line-${lineIndex}`;
+                        newLine.innerHTML = '>&nbsp;'; // Prompt
+                        terminal.appendChild(newLine);
+                    }
+                    setTimeout(type, 500);
+                }
+            } else {
+                // Fim da "invasão"
+                document.querySelector('.cursor').style.display = 'none';
+                warning.style.display = 'block'; // Mostra o aviso crítico
+            }
+        }
+
+        function start() {
+            const initialLine = document.createElement('div');
+            initialLine.className = `line line-0`;
+            initialLine.innerHTML = '>&nbsp;';
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            initialLine.appendChild(cursor);
+            terminal.appendChild(initialLine);
+            
+            // Reposicionar o cursor no final da linha atual
+            const observer = new MutationObserver(() => {
+                const currentLineElement = document.querySelector(`.line-${lineIndex}`);
+                if(currentLineElement) {
+                    currentLineElement.appendChild(cursor);
+                }
+            });
+            observer.observe(terminal, { childList: true, subtree: true });
+
+            setTimeout(type, 1000);
+        }
+
+        start();
+    </script>
+</body>
 </html>
